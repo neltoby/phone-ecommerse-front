@@ -60,7 +60,7 @@ const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> =
 	const { state: { themeColor}, dispatch } = useGlobalStore()
 	const cs = useStyles(themeColor);
 
-	const { isLoading, isError } = useQuery('getAllrecord', () => {
+	const { isLoading, isError, data } = useQuery('getAllrecord', () => {
 		return fetch(`${process.env.REACT_APP_URL}/sync-data`)
 			.then((res) => res.json())
 	}, 
@@ -75,6 +75,8 @@ const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> =
 			dispatch(actionCreator(ActionTypes.CATEGORY_TAGS, arr))
 		}
 	});
+
+	console.log(isError, data);
 
 	if (isLoading) {
 		return (
