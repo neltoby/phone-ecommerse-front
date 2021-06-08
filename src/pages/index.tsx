@@ -12,12 +12,20 @@ const Home = () => {
 		<QueryClientProvider client={queryClient}>
 			<IndexHome
 				side={
-					<ErrorBoundary fallback={<h4>Could not load page</h4>}>
+					<ErrorBoundary 
+						fallback={
+							<h4>Could not load page</h4>
+						}
+					>
 						<SideBar />
 					</ErrorBoundary>
 				}
 				right={
-					<ErrorBoundary fallback={<h4>Could not load page</h4>}>
+					<ErrorBoundary 
+						fallback={
+							<h4>Could not load page</h4>
+						}
+					>
 						<LoadBody />
 					</ErrorBoundary>
 				}

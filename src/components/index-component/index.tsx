@@ -1,6 +1,4 @@
-  
 import { FC } from 'react';
-import { useRouteMatch  } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +7,8 @@ import { useQuery } from 'react-query';
 import HeaderBar from '../header-bar';
 import { useGlobalStore } from '../../util/store';
 import { Colors } from '../../util/store';
+import { actionCreator, ActionTypes } from '../../util/action';
+import isJson from '../../util/is-json';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
 	root: {
@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 		display: 'flex',
 		height: 'calc(100vh - 10rem)',
 		paddingTop: '2rem',
+		width: '100%',
+		justifyContent: 'space-between',
     [theme.breakpoints.down('md')]: {
       paddingTop: '1rem'
     }
@@ -38,11 +40,15 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Basic: FC = ({ children }) => {
 	const { state: { themeColor} } = useGlobalStore()
 	const cs = useStyles(themeColor);
+	
 	return (
 		<Typography component="div" className={cs.root}>
 			<CssBaseline />
 			<HeaderBar />
-			<Typography component="div" className={cs.flexContainer}>
+			<Typography 
+				component="div" 
+				className={cs.flexContainer}
+			>
 				{children}
 			</Typography>
 		</Typography>
@@ -51,12 +57,22 @@ const Basic: FC = ({ children }) => {
 
 const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> = 
 ({side, right}) => {
-	const { state: { themeColor} } = useGlobalStore()
+	const { state: { themeColor}, dispatch } = useGlobalStore()
 	const cs = useStyles(themeColor);
 
-	const { isLoading, isError, data } = useQuery('getAllrecord', () => {
+	const { isLoading, isError } = useQuery('getAllrecord', () => {
 		return fetch(`${process.env.REACT_APP_URL}/sync-data`)
 			.then((res) => res.json())
+	}, 
+	{
+		onSuccess: (data: any) => {
+			let arr: string[] = [];
+			const buyReq = isJson(data.buyReq);
+			buyReq.forEach((item: any) => {
+				arr = [...arr, item.phone_name]
+			})
+			dispatch(actionCreator(ActionTypes.CATEGORY_TAGS, arr))
+		}
 	});
 
 	if (isLoading) {

@@ -1,8 +1,10 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { useGlobalStore, Colors } from '../../util/store';
-import { Button, TextField, Typography } from '@material-ui/core';
+import { Button, TextField, Typography, Hidden } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { ChangeEvent, FC } from 'react';
+import ReorderIcon from '@material-ui/icons/Reorder';
+
+import { useGlobalStore, Colors } from '../../util/store';
 import { actionCreator, ActionTypes } from '../../util/action';
 import { useHistory } from 'react-router';
 
@@ -19,16 +21,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       paddingRight: theme.spacing(2),
     }
   },
-  text: {
+  icon: {
+    width: '15%',
+    padding: theme.spacing(1),
+    marginRight: theme.spacing(2)
+  },
+  title: {
     width: '100%',
     fontWeight: 'bold',
     fontFamily: 'monospace',
+    fontSize: '1.6rem',
+    [theme.breakpoints.down('md')]: {
+      width: '80%',
+      paddingRight: theme.spacing(2),
+    }
+  },
+  text: {
+    width: '100%',
     fontSize: '1.6rem',
     textTransform: 'uppercase',
     marginBottom: theme.spacing(2),
     color: (prop: Colors) => prop.color,
     [theme.breakpoints.down('md')]: {
+      display: 'flex',
       width: '100%',
+      justifyContent: 'space-between',
     }
   },
   search: {
@@ -56,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const HeaderSearchBar: FC = () => {
-  const { state: { themeColor, searchInput }, dispatch } = useGlobalStore();
+  const { state: { themeColor, searchInput, openDrawer }, dispatch } = useGlobalStore();
   const cs = useStyles(themeColor);
   const history = useHistory();
 
@@ -72,10 +89,22 @@ const HeaderSearchBar: FC = () => {
     dispatch(actionCreator(ActionTypes.SEARCH_INPUT, e.currentTarget.value));
   }
 
+  const toggleFxn = () => {
+    const val = openDrawer ? ActionTypes.CLOSE : ActionTypes.OPEN;
+		dispatch(actionCreator(val));
+  }
+
   return (
     <Typography component='div' className={cs.root}>
       <Typography component='div' className={cs.text}>
-        Shop our latest available stock here
+        <Hidden mdUp implementation="js">
+          <span className={cs.icon} onClick={toggleFxn}>
+              <ReorderIcon />
+          </span>
+        </Hidden>
+        <Typography className={cs.title} component='div'>
+          Shop our latest available stock here
+        </Typography>
       </Typography>
       <Typography component='div' className={cs.search}>
         <TextField 
