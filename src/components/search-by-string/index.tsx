@@ -55,7 +55,6 @@ const SearchByStr: FC<Prop> = ({query}) => {
     staleTime: 0,
     onSuccess: (data: any) => {
       if(data.error) return 
-      console.log(data, 'line 56')
       data = isJson(data)
       dispatch(actionCreator(ActionTypes.HOME_ALL_RES, isJson(data.data)));
       dispatch(actionCreator(ActionTypes.HOME_CURRENT_DISPLAY, isJson(data.data)));

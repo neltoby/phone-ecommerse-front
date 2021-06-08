@@ -19,6 +19,8 @@ const Search = () => {
     <Suspense 
       fallback={
         <LoadingComponent 
+          height='100%'
+          width='100%'
           title={`Searching for phones with this property - ${query.q}`} 
         />
       }
