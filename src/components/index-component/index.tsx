@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 		paddingTop: '2rem',
 		width: '100%',
 		justifyContent: 'space-between',
+		backgroundColor: (prop: Colors) => prop.backgroundColor,
     [theme.breakpoints.down('md')]: {
       paddingTop: '1rem'
     }
