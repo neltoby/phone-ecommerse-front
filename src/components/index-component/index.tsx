@@ -66,8 +66,7 @@ const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> =
 	}, 
 	{
 		onSuccess: (data: any) => {
-			if(data.error) return
-			console.log(data); 
+			if(data.error) return;
 			let arr: string[] = [];
 			const buyReq = isJson(data.buyReq);
 			buyReq.forEach((item: any) => {

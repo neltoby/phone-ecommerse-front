@@ -31,6 +31,8 @@ const Search = () => {
     <Suspense 
       fallback={
         <LoadingComponent 
+          height='100%'
+          width='100%'
           title={`Searching for phones within this range: ${query.min} - ${query.max}`} 
         />
       }

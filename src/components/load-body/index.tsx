@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import { makeStyles, Theme, createStyles} from '@material-ui/core/styles'
 
 import LoadingComponent from '../loading-component';
-import { useGlobalStore } from '../../util/store';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

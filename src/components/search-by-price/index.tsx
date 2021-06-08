@@ -49,7 +49,7 @@ const SearchByP: FC<Prop> = ({ min, max }) => {
     }, 
     dispatch 
   } = useGlobalStore()
-  const { isLoading, isError, data } = useQuery(['searchByPrice', min, max, page], () => {
+  const { isLoading, isError } = useQuery(['searchByPrice', min, max, page], () => {
     if(pageTitle !== PageTitle.SEARCH_BY_PRICE) {
       dispatch(actionCreator(ActionTypes.PAGE_TITLE, PageTitle.SEARCH_BY_PRICE));
       dispatch(actionCreator(ActionTypes.RESET_ALL_RES));
