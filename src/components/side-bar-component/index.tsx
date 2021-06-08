@@ -12,10 +12,8 @@ import SliderComponent from '../slider-component';
 import Storage from '../storage';
 import RadioButton from '../radio-buttons';
 import Themes from '../themes';
-import Modal from '../modal';
-import ModalChild from '../modal-child';
+
 import { actionCreator, ActionTypes } from '../../util/action';
-import LoadingIphones from '../loading-iphones';
 
 type SideBarProps = {
   modal: boolean
@@ -82,7 +80,6 @@ const SideBarComponent: FC<SideBarProps> = ({modal}) => {
     state: { 
       themeColor, 
       categoryTags,
-      showModal, 
     }, 
     dispatch
   } = useGlobalStore();
@@ -147,14 +144,6 @@ const SideBarComponent: FC<SideBarProps> = ({modal}) => {
           Load Iphones
         </Button>
       </Typography>
-      {
-        showModal &&
-          <Modal>
-            <ModalChild>
-              <LoadingIphones />
-            </ModalChild>
-          </Modal>
-      }
     </Typography>
   )
 }

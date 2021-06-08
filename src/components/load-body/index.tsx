@@ -5,6 +5,10 @@ import { Helmet } from 'react-helmet';
 import { makeStyles, Theme, createStyles} from '@material-ui/core/styles'
 
 import LoadingComponent from '../loading-component';
+import Modal from '../modal';
+import ModalChild from '../modal-child';
+import LoadingIphones from '../loading-iphones';
+import { useGlobalStore } from '../../util/store';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -30,6 +34,7 @@ const src = 'https://res.cloudinary.com/thronetechnologies/image/upload/c_scale,
 
 const LoadBody = () => {
   const cs = useStyles();
+  const { state: { showModal } } = useGlobalStore();
   const searchPath = useRouteMatch (
     {
       path: '/search', 
@@ -127,6 +132,14 @@ const LoadBody = () => {
                   >
                     <NoPage />
                   </Suspense>
+      }
+      {
+        showModal &&
+          <Modal>
+            <ModalChild>
+              <LoadingIphones />
+            </ModalChild>
+          </Modal>
       }
     </Typography>
   )
