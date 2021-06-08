@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 	flexContainer: {
 		display: 'flex',
 		height: 'calc(100vh - 10rem)',
-		paddingTop: '2rem',
+		// paddingTop: '2rem',
 		width: '100%',
 		justifyContent: 'space-between',
 		backgroundColor: (prop: Colors) => prop.backgroundColor,
     [theme.breakpoints.down('md')]: {
-      paddingTop: '1rem'
+      // paddingTop: '1rem'
     }
 	},
 	loading: {
@@ -61,11 +61,12 @@ const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> =
 	const { state: { themeColor}, dispatch } = useGlobalStore()
 	const cs = useStyles(themeColor);
 
-	const { isLoading, isError, data } = useQuery('getAllrecord', () => {
+	const { isLoading, isError } = useQuery('getAllrecord', () => {
 		return fetch(`${process.env.REACT_APP_URL}/sync-data`)
 			.then((res) => res.json())
 	}, 
 	{
+		useErrorBoundary: false,
 		onSuccess: (data: any) => {
 			if(data.error) return;
 			let arr: string[] = [];
@@ -77,12 +78,14 @@ const IndexHome: FC<{side: JSX.Element, right: JSX.Element}> =
 		}
 	});
 
-	console.log(isError, data);
-
 	if (isLoading) {
 		return (
 			<Basic>
-				<Typography className={cs.loading}>Loading Data</Typography>
+				<Typography 
+					className={cs.loading}
+				>
+					Loading Data
+				</Typography>
 			</Basic>
 		);
 	}

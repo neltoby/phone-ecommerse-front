@@ -7,6 +7,7 @@ type Prop = {
   height?: string,
   width?: string,
   title?: string
+	start?: boolean
 }
 
 interface AllProp extends Prop, Colors {
@@ -26,6 +27,21 @@ const useStyles = makeStyles(() => createStyles({
 			fontWeight: 'bold',
 		}
 	},
+	start: {
+		width: '100vw',
+		height: '100vh',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: (prop: AllProp) => prop.backgroundColor,
+		color: (prop: AllProp) => prop.color,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		'& span': {
+			fontWeight: 'bold',
+		}
+	},
 	loading: {
 		color: '#007ee5',
 		paddingRight: '2rem'
@@ -35,9 +51,9 @@ const useStyles = makeStyles(() => createStyles({
 const LoadingComponent: FC<Prop> = (prop) => {
 	const { state: { themeColor }} = useGlobalStore()
 	const cs = useStyles({...prop, ...themeColor});
-  const { title } = prop;
+  const { title, start = false } = prop;
 	return (
-		<div className={cs.root}>
+		<div className={start ? cs.start : cs.root}>
 			<span>
 				<CircularProgress className={cs.loading} /> 
         {title === undefined ? 'Loading ...' : title}

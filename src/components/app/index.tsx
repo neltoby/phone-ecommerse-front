@@ -10,7 +10,7 @@ const App = () => {
 	return (
 		<Provider initialState={initialState}>
 			<Router>
-				<Suspense fallback={<LoadingComponent />}>
+				<Suspense fallback={<LoadingComponent start={true} />}>
 						<Route path="/">
 							<Home />
 						</Route>
