@@ -96,8 +96,8 @@ const SideBarComponent: FC<SideBarProps> = ({modal}) => {
 
   const loadIphones = async () => {
     try{
-      if(modal) dispatch(actionCreator(ActionTypes.CLOSE));
       dispatch(actionCreator(ActionTypes.SHOW_MODAL));
+      if(modal) dispatch(actionCreator(ActionTypes.CLOSE));
       const data = await fetch(`${process.env.REACT_APP_URL}/sync-data`);  
       dispatch(actionCreator(ActionTypes.LOAD_IPHONE_ERROR, LoadIphoneEnum.SUCCESS))    
     } catch(e) {

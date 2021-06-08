@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     width: '75%',
     justifyContent: 'space-around',
-    paddingRight: theme.spacing(3),
+    // paddingRight: theme.spacing(),
     flexWrap: 'wrap',
     marginBottom: theme.spacing(5),
     [theme.breakpoints.down('md')]: {

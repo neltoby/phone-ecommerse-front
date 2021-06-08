@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexFlow: 'row wrap',
+    marginBottom: theme.spacing(4)
   },
 }));
 
